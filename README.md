@@ -4,32 +4,38 @@
 
 ---
 
-A library for [libgdx](https://libgdx.badlogicgames.com/), an open-source game development application framework written in java.
+A library for [libgdx](https://github.com/libgdx/libgdx), an open-source game development application framework written in java.
 
 Draws simple shapes like libgdx's [ShapeRenderer](https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/graphics/glutils/ShapeRenderer.html) does, but uses a Batch to perform the drawing. This means it can be used in between `Batch#begin()` and `Batch#end()` without needing to flush the Batch.
 
 Comes with overloaded methods to draw lines, paths, ellipses, regular polygons and rectangles.
 
-Just needs to be provided with a Batch (SpriteBatch or PolygonSpriteBatch will work) and a TextureRegion.
+Just needs to be provided with a Batch and a TextureRegion. However, note that if you want to draw filled shapes, it is more efficient to use a batch that implements [PolygonBatch](https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/graphics/g2d/PolygonBatch.html) (eg a [PolygonSpriteBatch](https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/graphics/g2d/PolygonSpriteBatch.html)) instead of a Batch that does not (eg a [SpriteBatch](https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/graphics/g2d/SpriteBatch.html)).
+
+![Gif didn't load - see wiki for images!](https://raw.githubusercontent.com/wiki/earlygrey/shapedrawer/images/readme_demo.gif)
 
 ---
 
 ## Including in Project
 
-To use this in your gradle project, add the following to your root build.gradle file:
+To use this in your gradle project, add the version number and jitpack repository information to your root build.gradle file:
  
-```
+```groovy
 allprojects {
-	repositories {
-		...
-		maven { url 'https://jitpack.io' }
-	}
+    ext {
+    	...
+        shapedrawerVersion = '2.3.0'
+    }
+    repositories {
+	...
+	maven { url 'https://jitpack.io' }
+    }
 }
 ```
 And  in your core project add the dependency:
-```
+```groovy
 dependencies {
-        implementation 'space.earlygrey:shapedrawer:1.1.0'
+    implementation "space.earlygrey:shapedrawer:$shapedrawerVersion"
 }
 ```
 
@@ -43,7 +49,7 @@ project(":html") {
 
     dependencies {
         ...
-        implementation 'space.earlygrey:shapedrawer:1.1.0:sources'
+        implementation "space.earlygrey:shapedrawer:$shapedrawerVersion:sources"
     }
 }
 ```
@@ -53,7 +59,7 @@ And add the following line to the GdxDefinition.gwt.xml file in the HTML project
 <inherits name="space.earlygrey.shapedrawer"/>
 ```
 
-See the [jitpack website](https://jitpack.io/#earlygrey/shapedrawer/-SNAPSHOT) for more info.
+See the [jitpack website](https://jitpack.io/#space.earlygrey/shapedrawer) for more info.
 
 
 ## Usage
